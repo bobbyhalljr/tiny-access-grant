@@ -1,0 +1,10 @@
+{
+  "name": "tiny-access-grant",
+  "version": "1.0.0",
+  "description": "Tiny TypeScript continuation loop for long decodes. Resends the original request with the latest token, commits text only at checkpoints, raises the cap on MAX_TOKENS, and counts context separately from billed input. Fake model. No API key. No network.",
+  "main": "access-grant.ts",
+  "scripts": { "start": "tsx access-grant.ts", "typecheck": "tsc --noEmit" },
+  "author": "Bobby Hall Jr",
+  "license": "MIT",
+  "devDependencies": { "@types/node": "^22.10.0", "tsx": "^4.19.2", "typescript": "^5.7.2" }
+}

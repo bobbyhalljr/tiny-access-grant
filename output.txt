@@ -1,0 +1,38 @@
+== register and grant ==
+09:00  grant  email [read,send]: draft Q4 pipeline follow-ups
+09:00  grant  crm [read,update] until 11:00: log calls from follow-ups
+09:00  reject finance [read]: finance.read is above role sales-assistant
+09:00  reject crm [read,delete]: crm.delete is above role sales-assistant
+
+== check on every action ==
+09:05  ALLOW  pipeline-bot email.send     draft Q4 pipeline follow-ups
+09:05  ALLOW  pipeline-bot crm.update     log calls from follow-ups
+09:05  DENY   pipeline-bot crm.delete     scope delete not in [read,update]
+09:05  DENY   pipeline-bot finance.read   no finance grant
+09:05  DENY   ghost-bot    email.read     not in the system of record
+
+== role change ==
+09:40  ALLOW  close-helper finance.read   month-end invoice exceptions
+09:45  DENY   close-helper finance.read   revoked 09:45, role changed to support-triage
+09:45  ALLOW  close-helper crm.read       match invoices to deals
+
+== time-boxed grant ==
+11:05  DENY   pipeline-bot crm.update     expired 11:00
+11:05  ALLOW  pipeline-bot email.send     draft Q4 pipeline follow-ups
+
+== end the agent ==
+11:30  DENY   pipeline-bot email.send     agent ended
+11:30  DENY   pipeline-bot email.read     agent ended
+11:30  reject email [read]: agent has ended
+
+== same ending, ticket world ==
+ticket world:    record says ended, email app allows send? true
+lifecycle world: record says ended, email app allows send? false
+
+== who has access at 11:30 ==
+close-helper (active, owner dev) crm [read]: match invoices to deals
+
+== audit ==
+register 2, grant 4, reject 3, check 12, role 1, revoke 2, end 1
+11:30  end    Q4 follow-up project closed
+11:30  revoke email: agent ended: Q4 follow-up project closed
