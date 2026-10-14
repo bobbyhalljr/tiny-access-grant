@@ -33,3 +33,5 @@ See `output.txt`. Every agent, role, system, scope and time is an example input.
 ## License
 
 MIT
+
+Read the write-up on Dev.to: https://dev.to/bobbyhalljr/workday-is-buying-identity-for-ai-agents-lets-build-a-tiny-access-grant-in-typescript-25m4
